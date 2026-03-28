@@ -202,9 +202,6 @@ I added a new derived column called `total_text_length`, which combines the char
 ### Code Example
 
 ```python
-### Code Example
-
-```python
 df = df.with_columns(
     [
         pl.col("title").str.len_chars().alias("title_length"),
