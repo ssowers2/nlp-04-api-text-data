@@ -1,4 +1,4 @@
-# nlp-01-getting-started
+# API Text Data Pipeline (EVTL with Python)
 
 [![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](#)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
@@ -192,3 +192,75 @@ such as Great Expectations or Soda.
 
 In this module, validation is implemented manually to develop a
 clear understanding of structure, assumptions, and data quality.
+
+## Phase 4: Technical Modification
+
+For Phase 4, I made a small technical modification in the Transform stage of the pipeline.
+
+I added a new derived column called `total_text_length`, which combines the character length of the `title` and `body` fields. This was done using Polars by calculating the length of each field and combining them into a new column.
+
+### Code Example
+
+```python
+### Code Example
+
+```python
+df = df.with_columns(
+    [
+        pl.col("title").str.len_chars().alias("title_length"),
+        pl.col("body").str.len_chars().alias("body_length"),
+        (pl.col("title").str.len_chars() + pl.col("body").str.len_chars()).alias("total_text_length")
+    ]
+)
+
+### Challenge Encountered
+
+One challenge I encountered was correctly creating a derived column using Polars. At first, the new column did not calculate correctly because I was not combining the fields properly. I resolved this by adjusting the expression and verifying the output in the DataFrame preview.
+
+## Phase 5: Apply the Pipeline to a New API
+
+For Phase 5, I reused the same EVTL pipeline and applied it to a new API endpoint:
+
+https://jsonplaceholder.typicode.com/comments
+
+### JSON Structure
+
+The JSON data is structured as a list of dictionaries. Each dictionary represents a single comment and contains fields such as `postId`, `id`, `name`, `email`, and `body`. The structure is flat and not nested, which makes it straightforward to inspect and transform.
+
+### Selected Fields
+
+I selected the following fields for analysis:
+
+- `postId` – connects each comment to a specific post
+- `id` – unique identifier for each comment
+- `name` – a short label or title for the comment
+- `email` – identifies the user who submitted the comment
+- `body` – contains the main text of the comment
+
+These fields are useful for organizing, identifying, and analyzing the data.
+
+### Transform Changes
+
+In the Transform stage, I updated the pipeline to match the new JSON structure. I replaced the original fields (`userId`, `title`) with the new fields (`postId`, `name`, `email`, and `body`).
+
+I also created new derived columns:
+
+- `name_length` – character length of the name field
+- `body_length` – character length of the body field
+- `total_text_length` – combined length of name and body
+- `valid_email` – checks if the email contains "@"
+
+These changes allowed the pipeline to adapt to a different dataset while still producing a clean and structured output.
+
+### Output Files
+
+To avoid overwriting the original dataset, I created new output files:
+
+- `comments_raw.json`
+- `comments_processed.csv`
+
+This keeps the datasets organized and makes it easier to compare results across different API sources.
+
+### Challenge Encountered
+
+One challenge I encountered was a `KeyError` after switching APIs. This occurred because the Transform stage was still using field names from the original dataset. I resolved this by updating the code to use the correct fields.
