@@ -7,11 +7,11 @@
 # It is used in this project to streamline documentation and provide better support for docstring generation.
 
 [project]
-site_name = "Web Mining and Applied NLP"
+site_name = "API Text Data Pipeline (EVTL with Python)"
 site_url = "https://github.com/ssowers2/nlp-04-api-text-data"
-repo_url = "ssowers2/nlp-04-api-text-data"
+repo_url = "https://github.com/ssowers2/nlp-04-api-text-data"
 repo_name = "ssowers2/nlp-04-api-text-data"
-site_description = "Web Mining and Applied NLP project documentation"
+site_description = "Documentation for an EVTL pipeline that extracts, validates, transforms, and loads JSON text data from web APIs."
 docs_dir = "docs" # source directory for documentation markdown files
 site_dir = "site" # output directory for generated site (ignored by Git; not in repo)
 edit_uri = "edit/main/docs/" # "Edit this page" links (GitHub)

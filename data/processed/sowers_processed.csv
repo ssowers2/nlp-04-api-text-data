@@ -1,4 +1,4 @@
-post_id,id,name,email,body,name_length,body_length,total_text_length,valid_email
+post_id,comment_id,name,email,body,name_length,body_length,total_text_length,valid_email
 1,1,id labore ex et quam laborum,18,"laudantium enim quasi est quidem magnam voluptate ipsam eos
 tempora quo necessitatibus
 dolor quam autem quasi

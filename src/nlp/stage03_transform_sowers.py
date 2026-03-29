@@ -66,7 +66,7 @@ def run_transform(
         records.append(
             {
                 "post_id": record["postId"],
-                "id": record["id"],
+                "comment_id": record["id"],
                 "name": record["name"],
                 "email": record["email"],
                 "body": record["body"],
